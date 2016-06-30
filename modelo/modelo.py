@@ -1,5 +1,6 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*- 
+import branch 
 from itertools import izip
 from scipy.optimize import linprog
 import numpy as np
@@ -23,7 +24,7 @@ class Modelo(object):
 		for line in data.splitlines():
 			data_full.append(line.split())
 		return data_full				
-	
+		
 	def get_filas(self, data):
 		"""Retorna un array donde cada elemento es un subarray
 		con los alimentos llevados por un avion a cada aldea, es decir,
@@ -34,8 +35,9 @@ class Modelo(object):
 		array.pop(len(array) - 2)#sacamos el penultimo elemento
 		array.pop()#sacamos el ultimo elemento
 		for fila in array:
-			fila = [int(i) for i in fila]
+			fila = [float(i) for i in fila]
 			filas.append(fila)
+		print filas	
 		return filas
 
 	def get_columnas(self, data):
@@ -46,8 +48,9 @@ class Modelo(object):
 		fila = self.get_filas(data)
 
 		for mapa in zip(*fila):
-			mapa = [int(i) for i in mapa]
-			columnas.append(list(mapa))	
+			mapa = [float(i) for i in mapa]
+			columnas.append(list(mapa))
+		print columnas		
 		return columnas
 
 	def get_aviones(self, data):
@@ -98,11 +101,11 @@ class Modelo(object):
 		for i in xrange((num_aldeas*num_aviones) + 1):
 			if i % num_aviones is 0:
 			 	offsets.append(i)
+		print offsets	 	
 		return offsets
 
 	def get_restricciones(self, data):
 		"""Retorna una matriz de restricciones, concatenando las restricciones de fila y columna"""
-		#print np.concatenate((self.get_restriccion_columna(data), self.get_restriccion_fila(data)))
 		return np.concatenate((self.get_restriccion_columna(data), self.get_restriccion_fila(data)))
 				
 	def get_limites(self, data):
@@ -130,28 +133,10 @@ class Modelo(object):
 		respuesta = linprog(self.get_paquete(data).get('funcion_objetivo'),
 							A_ub = self.get_paquete(data).get('restricciones'), 
 							b_ub = self.get_paquete(data).get('limites'),
-							method='simplex')
+							method='simplex')										
 		return respuesta
-
-# if __name__ == '__main__':
-# 	filetxt = """3 5
-# 10 8 6 9 12
-# 5 3 8 4 10
-# 7 9 6 10 4
-# 50 90 60
-# 100 80 70 40 20"""
-# 	m = Modelo()
-	#m.get_restricciones(filetxt)
-	#m.get_restriccion_fila(filetxt)
-	#m.get_restriccion_columna(filetxt)
-	#m.get_offset(filetxt)
-	#m.get_aviones(filetxt)
-	#m.get_aldeas(filetxt)
-	#m.get_paquete(filetxt)
-	#m.get_simplex(filetxt)	
-	#m.get_values(filetxt)
-	# m.get_filas(filetxt)
-	#m.get_viajes_avion(filetxt)	
-	#m.get_limites(filetxt)
-	#m.get_funcion_obj(filetxt)
-	#m.get_columnas(filetxt)
+	
+	
+	def get_branch(self):
+		"""Realiza el método branch and bound con el problema modelado"""
+		data = self.data

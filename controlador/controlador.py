@@ -19,7 +19,7 @@ class Controlador(QtGui.QMainWindow):
 		self.label_archivo = self.vista.label_archivo
 		self.conectar()
 
-	@pyqtSlot()	
+	@pyqtSlot()
 	def cargar_archivo(self):
 		"""Abre la ventana para seleccionar el archivo y lee el mismo"""
 		fname = QtGui.QFileDialog.getOpenFileName(self, 'Abrir Archivo', os.getcwd())
@@ -40,7 +40,6 @@ Con los datos ingresados se tiene la siguiente respuesta:
 Z = {funcion}
 Variables = {variables}
 No. de iteraciones = {iter}""".format(funcion=respuesta.get('fun')*-1, variables=respuesta.get('x'), iter=respuesta.get('nit'))
-		#print respuesta
 		self.text_resultados.setText(mensaje)
 	
 	@pyqtSlot()

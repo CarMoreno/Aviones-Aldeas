@@ -90,7 +90,6 @@ class Ui_Ventana(object):
         self.button_cargar.setGeometry(QtCore.QRect(30, 100, 131, 51))
         self.button_cargar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon = QtGui.QIcon()
-        # icon.addPixmap(QtGui.QPixmap(_fromUtf8("../icons/carpeta.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         icon.addPixmap(QtGui.QPixmap(os.path.join(os.getcwd(), "icons\carpeta.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)     
         self.button_cargar.setIcon(icon)
         self.button_cargar.setObjectName(_fromUtf8("button_cargar"))
@@ -125,7 +124,6 @@ class Ui_Ventana(object):
         self.statusbar = QtGui.QStatusBar(Ventana)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         Ventana.setStatusBar(self.statusbar)
-
         self.retranslateUi(Ventana)
         QtCore.QObject.connect(self.button_borrar, QtCore.SIGNAL(_fromUtf8("clicked()")), self.text_resultados.clear)
         QtCore.QMetaObject.connectSlotsByName(Ventana)
