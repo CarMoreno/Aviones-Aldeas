@@ -1,4 +1,4 @@
-#Aviones y Aldeas
+# Aviones y Aldeas
 
 Proyecto para la asignatura de Complejidad y Optimización que resolverá el siguiente problema usando el método Simplex:
 
